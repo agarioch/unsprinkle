@@ -10,7 +10,7 @@ const PhotoGridItem = ({ id, src, alt, tags }) => {
         <picture>
           <source type='image/avif' srcSet={IMAGE_FORMATS.avif.map(f => src.replace('.jpg',f)).join(',')} />
           <source type='image/jpeg' srcSet={IMAGE_FORMATS.jpeg.map(f => src.replace('.jpg',f)).join(',')} />
-          <Image src={src} />
+          <Image src={src} alt={alt} />
         </picture>
       </Anchor>
       <Tags>
@@ -39,17 +39,24 @@ const Image = styled.img`
 `;
 
 const Tags = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  overflow-x: hidden;
 `;
 
 const Tag = styled.li`
+  display: inline-block;
   padding: 4px 8px;
   background: var(--color-gray-300);
   font-size: 0.875rem;
   font-weight: 475;
   color: var(--color-gray-800);
+  max-width: 20ch;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow-x: hidden;
+
+  &:not(:first-of-type) {
+    margin-left: 8px;
+  }
 `;
 
 export default PhotoGridItem;
